@@ -1,0 +1,6 @@
+﻿GET http://localhost:5050/api/goals/08dc33a9-df34-498e-8647-3013cda1852e
+Content-Type: application/json
+
+{
+  "id": "08dc33a9-df34-498e-8647-3013cda1852e"
+}

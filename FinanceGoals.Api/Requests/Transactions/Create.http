@@ -1,0 +1,8 @@
+﻿POST http://localhost:5050/api/transactions
+Content-Type: application/json
+
+{
+  "idGoal": "08dc355a-2fdd-4a93-8bb1-1a078644885f",
+  "quantity": 20,
+  "transactionType": 2
+}

@@ -1,0 +1,7 @@
+﻿POST http://localhost:5050/api/goals
+Content-Type: application/json
+
+{
+  "title": "Viajar",
+  "targetAmount": 15000
+}
