@@ -32,8 +32,8 @@ public class GetGoalByIdQueryHandler : IRequestHandler<GetGoalByIdQuery, Result<
         var transactionsViewModel = goal
             .Transactions
             .Select(transaction =>
-                new TransactionViewModel(transaction.Id, transaction.Quantity, transaction.TransactionType))
+                new TransactionViewModel(transaction.Id, transaction.Quantity, transaction.ETransactionType))
             .ToList();
-        return Result.Ok(new GoalViewModel(goal.Id, goal.Title, goal.TargetAmount, goal.TotalAmount, goal.Start, goal.End, transactionsViewModel));
+        return Result.Ok(new GoalViewModel(goal.Id, goal.Title, goal.TargetAmount, goal.TotalAmount, goal.Start, goal.End, goal.Active, transactionsViewModel));
     }
 }

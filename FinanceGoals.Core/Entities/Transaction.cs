@@ -9,16 +9,16 @@ namespace FinanceGoals.Core.Entities;
 /// </summary>
 public class Transaction : Entity
 {
-    public Transaction(decimal quantity, TransactionTypeEnum transactionType, Guid idGoal)
+    public Transaction(decimal quantity, ETransactionType eTransactionType, Guid idGoal)
     {
         Quantity = quantity;
-        TransactionType = transactionType;
+        ETransactionType = eTransactionType;
         IdGoal = idGoal;
     }
     
     public Guid IdGoal { get; set; }
     public decimal Quantity { get; set; }
-    public TransactionTypeEnum TransactionType { get; set; }
+    public ETransactionType ETransactionType { get; set; }
 
     /// <summary>
     /// Checks if a transaction is valid.
@@ -39,7 +39,7 @@ public class Transaction : Entity
     /// <returns>A bool value</returns>
     public bool IsDeposit()
     {
-        return TransactionType == TransactionTypeEnum.Deposit;
+        return ETransactionType == ETransactionType.Deposit;
     }
     
 }

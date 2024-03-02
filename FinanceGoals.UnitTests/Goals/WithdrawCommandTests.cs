@@ -47,7 +47,7 @@ public class WithdrawCommandTests
     public async void HandlerShouldReturnErrorIfTransactionIsInvalid()
     {
         // Arrange
-        var goal = new Goal("MyMockedGoal", 10.000M, 1.000M, DateTime.Now, DateTime.Now.AddDays(3));
+        var goal = new Goal("MyMockedGoal", 10.000M, 1.000M, 1);
         _unitOfWorkMock
             .GoalRepository
             .ReadById(Arg.Any<Guid>())
@@ -68,7 +68,7 @@ public class WithdrawCommandTests
     public async void HandlerShouldReturnOkIfWithdrawIsPerformed()
     {
         // Arrange
-        var goal = new Goal("MyMockedGoal", 10000M, 1000M, DateTime.Now, DateTime.Now.AddDays(3), 10000M);
+        var goal = new Goal("MyMockedGoal", 10000M, 1000M, 1, 10000M);
         _unitOfWorkMock
             .GoalRepository
             .ReadById(Arg.Any<Guid>())
@@ -92,7 +92,7 @@ public class WithdrawCommandTests
     public async void HandlerShouldReturnErrorIfFutureAmountIsNegative(decimal withdraw)
     {
         // Arrange
-        var goal = new Goal("MyMockedGoal", 10.000M, 1.000M, DateTime.Now, DateTime.Now.AddDays(3));
+        var goal = new Goal("MyMockedGoal", 10.000M, 1.000M, 1);
         _unitOfWorkMock
             .GoalRepository
             .ReadById(Arg.Any<Guid>())
@@ -120,7 +120,7 @@ public class WithdrawCommandTests
     public async void HandlerShouldIncreaseAmountIfTwoDepositsArePerformed(decimal expectedAmount, decimal one, decimal two, decimal initialAmount)
     {
         // Arrange
-        var goal = new Goal("MyMockedGoal", 10.000M, 1.000M, DateTime.Now, DateTime.Now.AddDays(3), initialAmount);
+        var goal = new Goal("MyMockedGoal", 10.000M, 1.000M, 1, initialAmount);
         _unitOfWorkMock
             .GoalRepository
             .ReadById(Arg.Any<Guid>())

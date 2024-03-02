@@ -1,4 +1,5 @@
 ﻿using FinanceGoals.Core.Entities;
+using FinanceGoals.Core.Enumerations;
 using FinanceGoals.Core.Repositories;
 using Microsoft.EntityFrameworkCore;
 
@@ -26,7 +27,7 @@ public class GoalRepository : IGoalRepository
         return await _appDbContext
             .Goals
             .Include(o => o.Transactions)
-            .SingleOrDefaultAsync(o => o.Id == id);
+            .SingleOrDefaultAsync(o => o.Active == EGoalStatus.Actived && o.Id == id);
     }
     
     /// <inheritdoc/>
@@ -34,6 +35,7 @@ public class GoalRepository : IGoalRepository
     {
         return await _appDbContext
             .Goals
+            .Where(o => o.Active == EGoalStatus.Actived)
             .Include(o => o.Transactions)
             .ToListAsync();
     }
@@ -53,5 +55,14 @@ public class GoalRepository : IGoalRepository
             .Transactions
             .Where(o => o.IdGoal == idGoal)
             .ToListAsync();
+    }
+    
+    /// <inheritdoc/>
+    public Task Delete(Goal entity)
+    {
+        _appDbContext
+            .Goals
+            .Remove(entity);
+        return Task.CompletedTask;
     }
 }

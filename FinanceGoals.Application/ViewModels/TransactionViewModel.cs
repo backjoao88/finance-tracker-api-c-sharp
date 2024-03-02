@@ -7,13 +7,13 @@ namespace FinanceGoals.Application.ViewModels;
 /// </summary>
 public class TransactionViewModel
 {
-    public TransactionViewModel(Guid id, decimal quantity, TransactionTypeEnum transactionType)
+    public TransactionViewModel(Guid id, decimal quantity, ETransactionType eTransactionType)
     {
         Id = id;
         Quantity = quantity;
-        TransactionType = transactionType;
+        ETransactionType = eTransactionType;
     }
     public Guid Id { get; set; }
     public decimal Quantity { get; set; }
-    public TransactionTypeEnum TransactionType { get; set; }
+    public ETransactionType ETransactionType { get; set; }
 }

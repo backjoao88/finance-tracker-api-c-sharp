@@ -6,7 +6,7 @@ namespace FinanceGoals.Core.Repositories;
 /// <summary>
 /// Represents a contract to a goal data access.
 /// </summary>
-public interface IGoalRepository : IWritableRepository<Goal>, IReadableRepository<Goal>, IReadableAllRepository<Goal>
+public interface IGoalRepository : IWritableRepository<Goal>, IReadableRepository<Goal>, IReadableAllRepository<Goal>, IDeletableRepository<Goal>
 {
     /// <summary>
     /// Adds a transaction to the specified goal.

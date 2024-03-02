@@ -45,7 +45,7 @@ public class DepositCommandTests
     public async void HandlerShouldReturnErrorIfTransactionIsInvalid()
     {
         // Arrange
-        var goal = new Goal("MyMockedGoal", 10.000M, 1.000M, DateTime.Now, DateTime.Now.AddDays(3));
+        var goal = new Goal("MyMockedGoal", 10.000M, 1.000M, 1);
         _unitOfWorkMock
             .GoalRepository
             .ReadById(Arg.Any<Guid>())
@@ -66,7 +66,7 @@ public class DepositCommandTests
     public async void HandlerShouldReturnOkIfDepositIsPerformed()
     {
         // Arrange
-        var goal = new Goal("MyMockedGoal", 10.000M, 1.000M, DateTime.Now, DateTime.Now.AddDays(3));
+        var goal = new Goal("MyMockedGoal", 10.000M, 1.000M, 1);
         _unitOfWorkMock
             .GoalRepository
             .ReadById(Arg.Any<Guid>())
@@ -92,7 +92,7 @@ public class DepositCommandTests
     public async void HandlerShouldIncreaseAmountIfTwoDepositsArePerformed(decimal expectedAmount, decimal one, decimal two)
     {
         // Arrange
-        var goal = new Goal("MyMockedGoal", 10.000M, 1.000M, DateTime.Now, DateTime.Now.AddDays(3));
+        var goal = new Goal("MyMockedGoal", 10.000M, 1.000M,1);
         _unitOfWorkMock
             .GoalRepository
             .ReadById(Arg.Any<Guid>())

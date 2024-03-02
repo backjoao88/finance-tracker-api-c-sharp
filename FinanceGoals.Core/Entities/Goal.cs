@@ -9,21 +9,31 @@ namespace FinanceGoals.Core.Entities;
 /// </summary>
 public class Goal : Entity
 {
-    public Goal(string title, decimal targetAmount, decimal monthlySavingAmount, DateTime start, DateTime end, decimal totalAmount = 0)
+    public Goal(string title, decimal targetAmount, decimal totalAmount, decimal monthlySavingAmount, DateTime start, DateTime end)
     {
         Title = title;
         TargetAmount = targetAmount;
         TotalAmount = totalAmount;
         MonthlySavingAmount = monthlySavingAmount;
+        Active = EGoalStatus.Actived;
         Start = start;
         End = end;
-        Active = true;
+    }
+    public Goal(string title, decimal targetAmount, decimal monthlySavingAmount, int deadlineMonths = 1, decimal totalAmount = 0)
+    {
+        Title = title;
+        TargetAmount = targetAmount;
+        TotalAmount = totalAmount;
+        MonthlySavingAmount = monthlySavingAmount;
+        Active = EGoalStatus.Actived;
+        Start = DateTime.Now;
+        End = Start.AddMonths(deadlineMonths);
     }
     public string Title { get; private set; }
     public decimal TargetAmount { get; private set; }
     public decimal TotalAmount { get; private set; }
     public decimal MonthlySavingAmount { get; private set; }
-    public bool Active { get; private set; }
+    public EGoalStatus Active { get; private set; }
     public DateTime Start { get; private set; }
     public DateTime End { get; private set; }
     public List<Transaction> Transactions { get; private set; } = null!;
@@ -33,7 +43,7 @@ public class Goal : Entity
     /// </summary>
     public void Deactivate()
     {
-        Active = false;
+        Active = EGoalStatus.Deactivated;
     }
 
     /// <summary>
@@ -52,7 +62,7 @@ public class Goal : Entity
     /// <returns></returns>
     public Result<Transaction> Deposit(decimal amount)
     {
-        var newTransaction = new Transaction(amount, TransactionTypeEnum.Deposit, Id);
+        var newTransaction = new Transaction(amount, ETransactionType.Deposit, Id);
         var isValidResult = newTransaction.IsValid();
         if (isValidResult.IsFailure)
         {
@@ -69,7 +79,7 @@ public class Goal : Entity
     /// <returns></returns>
     public Result<Transaction> Withdraw(decimal amount)
     {
-        var newTransaction = new Transaction(amount, TransactionTypeEnum.Withdraw, Id);
+        var newTransaction = new Transaction(amount, ETransactionType.Withdraw, Id);
         var isValidTransactionResult = newTransaction.IsValid();
         if (isValidTransactionResult.IsFailure)
         {

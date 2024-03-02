@@ -19,7 +19,7 @@ public class CreateGoalCommandHandler : IRequestHandler<CreateGoalCommand, Resul
 
     public async Task<Result> Handle(CreateGoalCommand request, CancellationToken cancellationToken)
     {
-        var goal = new Goal(request.Title, request.TargetAmount, request.MonthlySavingAmount, request.Start, request.End);
+        var goal = new Goal(request.Title, request.TargetAmount, request.MonthlySavingAmount, request.DeadlineMonths);
         await _unitOfWork.GoalRepository.Save(goal);
         await _unitOfWork.Complete();
         return Result.Ok();
