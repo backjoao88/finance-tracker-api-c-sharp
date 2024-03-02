@@ -1,6 +1,6 @@
-﻿using FinanceGoals.Core;
-using FinanceGoals.Core.Entities;
+﻿using FinanceGoals.Core.Entities;
 using FinanceGoals.Core.Primitives;
+using FinanceGoals.Core.Repositories;
 using MediatR;
 
 namespace FinanceGoals.Application.Commands.Goals.Create;

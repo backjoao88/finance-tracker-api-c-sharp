@@ -1,6 +1,0 @@
-﻿GET http://localhost:5050/api/transactions/08dc346d-0cb9-4204-82f6-81cf21cb6746
-Content-Type: application/json
-
-{
-  "id": "08dc346d-0cb9-4204-82f6-81cf21cb6746"
-}

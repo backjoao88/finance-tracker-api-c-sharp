@@ -2,6 +2,6 @@
 Content-Type: application/json
 
 {
-  "title": "Viajar",
-  "targetAmount": 15000
+  "title": "Comprar um piano",
+  "targetAmount": 20000
 }

@@ -1,8 +1,10 @@
 ﻿using FinanceGoals.Api.Abstractions;
 using FinanceGoals.Application.Commands.Goals.Create;
+using FinanceGoals.Application.Commands.Goals.Deactivate;
+using FinanceGoals.Application.Commands.Goals.Deposit;
+using FinanceGoals.Application.Commands.Goals.Withdraw;
 using FinanceGoals.Application.Queries.Goals.GetAll;
 using FinanceGoals.Application.Queries.Goals.GetById;
-using FinanceGoals.Core.Primitives;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -36,6 +38,36 @@ public class GoalController : ApiController
     }
 
     /// <summary>
+    /// Endpoint to deposit an amount into a goal.
+    /// </summary>
+    /// <param name="id"></param>
+    /// <param name="depositCommand"></param>
+    /// <returns></returns>
+    [HttpPatch("deposit/{id}")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    public async Task<IActionResult> Deposit(Guid id, [FromBody] DepositCommand depositCommand)
+    {
+        depositCommand.IdGoal = id;
+        var result = await _mediator.Send(depositCommand);
+        return result.IsSuccess ? NoContent() : BadRequest(result.Error);
+    }
+
+    /// <summary>
+    /// Endpoint to withdraw an amount into a goal.
+    /// </summary>
+    /// <param name="id"></param>
+    /// <param name="withdrawCommand"></param>
+    /// <returns></returns>
+    [HttpPatch("withdraw/{id}")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    public async Task<IActionResult> Withdraw(Guid id, [FromBody] WithdrawCommand withdrawCommand)
+    {
+        withdrawCommand.IdGoal = id;
+        var result = await _mediator.Send(withdrawCommand);
+        return result.IsSuccess ? NoContent() : BadRequest(result.Error);
+    }
+
+    /// <summary>
     /// Endpoint to retrieve a goal by id.
     /// </summary>
     /// <returns></returns>
@@ -59,6 +91,17 @@ public class GoalController : ApiController
         var getAllGoalsCommand = new GetAllGoalsQuery();
         var goals = await _mediator.Send(getAllGoalsCommand);
         return Ok(goals);
+    }
+    
+    /// <summary>
+    /// Endpoint to deactivate a goal.
+    /// </summary>
+    [HttpPatch]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    public async Task<IActionResult> Deactivate(DeactivateGoalCommand deactivateGoalCommand)
+    {
+        await _mediator.Send(deactivateGoalCommand);
+        return NoContent();
     }
 
 }

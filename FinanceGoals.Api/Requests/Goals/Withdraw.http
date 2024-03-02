@@ -1,0 +1,7 @@
+﻿PATCH http://localhost:5050/api/goals/withdraw/08dc39f5-a373-4921-8b84-a4789b2b881d
+Content-Type: application/json
+
+{
+  "idGoal": "08dc39f5-a373-4921-8b84-a4789b2b881d",
+  "amount": 5.00
+}

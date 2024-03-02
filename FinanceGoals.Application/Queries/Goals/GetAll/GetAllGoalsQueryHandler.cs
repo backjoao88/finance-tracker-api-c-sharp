@@ -1,5 +1,6 @@
 ﻿using FinanceGoals.Application.ViewModels;
 using FinanceGoals.Core;
+using FinanceGoals.Core.Repositories;
 using MediatR;
 
 namespace FinanceGoals.Application.Queries.Goals.GetAll;
@@ -28,7 +29,7 @@ public class GetAllGoalsQueryHandler : IRequestHandler<GetAllGoalsQuery, List<Go
                     .Select(transaction =>
                         new TransactionViewModel(transaction.Id, transaction.Quantity, transaction.TransactionType))
                     .ToList();
-                return new GoalViewModel(goal.Id, goal.Title, goal.TargetAmount, goal.TotalAmount, transactionsViewModel);
+                return new GoalViewModel(goal.Id, goal.Title, goal.TargetAmount, goal.TotalAmount, goal.Start, goal.End, transactionsViewModel);
             })
             .ToList();
         return goalsViewModel;

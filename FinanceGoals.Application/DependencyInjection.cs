@@ -1,4 +1,6 @@
-﻿using FluentValidation;
+﻿using FinanceGoals.Core.Services;
+using FinanceGoals.Core.Services.Contracts;
+using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace FinanceGoals.Application;
@@ -12,6 +14,7 @@ public static class DependencyInjection
     {
         services.AddValidators();
         services.AddMediator();
+        services.AddApplicationServices();
         return services;
     }
 
@@ -23,5 +26,10 @@ public static class DependencyInjection
     private static void AddMediator(this IServiceCollection services)
     {
         services.AddMediatR(o => o.RegisterServicesFromAssembly(typeof(DependencyInjection).Assembly));
+    }
+
+    private static void AddApplicationServices(this IServiceCollection services)
+    {
+        services.AddScoped<IGoalService, GoalService>();
     }
 }

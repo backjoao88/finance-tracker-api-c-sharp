@@ -20,10 +20,9 @@ public static class DependencyInjection
                 var options = provider.GetService(typeof(IOptions<AppDbContextOptions>)) as IOptions<AppDbContextOptions>;
                 var dbContextOptions = options?.Value;
                 if (dbContextOptions is null) return;
-                builder.UseMySql(dbContextOptions.ConnectionString, new MariaDbServerVersion(new Version(8, 0, 35)));
+                builder.UseMySql(dbContextOptions.ConnectionString, new MySqlServerVersion(new Version(8, 0, 35)));
             }))
             .AddScoped<IUnitOfWork, AppUnitOfWork>()
-            .AddScoped<ITransactionRepository, TransactionRepository>()
             .AddScoped<IGoalRepository, GoalRepository>();
         return services;
     }

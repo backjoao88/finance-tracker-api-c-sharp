@@ -3,6 +3,7 @@ using FinanceGoals.Core;
 using FinanceGoals.Core.Entities;
 using FinanceGoals.Core.Primitives;
 using FinanceGoals.Core.Primitives.Errors;
+using FinanceGoals.Core.Repositories;
 using MediatR;
 
 namespace FinanceGoals.Application.Queries.Goals.GetById;
@@ -33,6 +34,6 @@ public class GetGoalByIdQueryHandler : IRequestHandler<GetGoalByIdQuery, Result<
             .Select(transaction =>
                 new TransactionViewModel(transaction.Id, transaction.Quantity, transaction.TransactionType))
             .ToList();
-        return Result.Ok(new GoalViewModel(goal.Id, goal.Title, goal.TargetAmount, goal.TotalAmount, transactionsViewModel));
+        return Result.Ok(new GoalViewModel(goal.Id, goal.Title, goal.TargetAmount, goal.TotalAmount, goal.Start, goal.End, transactionsViewModel));
     }
 }

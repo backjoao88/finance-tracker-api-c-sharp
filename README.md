@@ -1,6 +1,11 @@
 # Finance Goals
 
 Software para gerenciamento de objetivos de financeiros, similar a caixinha do Nubank. Realizado com o propósito de aperfeiçar minhas habilidades na construção de APIs.
+- Permite cadastro de novos usuários;
+- Permite cadastro de caixinhas de objetivos financeiros;
+- O sistema permite o depósito de uma quantia em caixinhas de um usuário;
+- O sistema permite a retirada de uma quantia em caixinhas de um usuário;
+- O sistema calcula o balanço de uma caixinha;
 
 ## Regras de negócio
 
@@ -27,9 +32,3 @@ Software para gerenciamento de objetivos de financeiros, similar a caixinha do N
 - TransactionDate (datetime) (pode ser hoje ou de uma data passada)
 - CreatedAt (datetime)
 - IsDeleted (bool)
-
-
-## Conceitos aplicados
-
-- [ ]   asdsa
-- [ ] as sadsaa

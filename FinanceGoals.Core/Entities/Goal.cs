@@ -1,4 +1,5 @@
-﻿using FinanceGoals.Core.Primitives;
+﻿using FinanceGoals.Core.Enumerations;
+using FinanceGoals.Core.Primitives;
 using FinanceGoals.Core.Primitives.Errors;
 
 namespace FinanceGoals.Core.Entities;
@@ -8,21 +9,32 @@ namespace FinanceGoals.Core.Entities;
 /// </summary>
 public class Goal : Entity
 {
-    public Goal(string title, decimal targetAmount, decimal monthlySavingAmount, DateTime start, DateTime end)
+    public Goal(string title, decimal targetAmount, decimal monthlySavingAmount, DateTime start, DateTime end, decimal totalAmount = 0)
     {
         Title = title;
         TargetAmount = targetAmount;
+        TotalAmount = totalAmount;
         MonthlySavingAmount = monthlySavingAmount;
         Start = start;
         End = end;
+        Active = true;
     }
     public string Title { get; private set; }
     public decimal TargetAmount { get; private set; }
     public decimal TotalAmount { get; private set; }
     public decimal MonthlySavingAmount { get; private set; }
+    public bool Active { get; private set; }
     public DateTime Start { get; private set; }
     public DateTime End { get; private set; }
     public List<Transaction> Transactions { get; private set; } = null!;
+
+    /// <summary>
+    /// Deactivate the goal.
+    /// </summary>
+    public void Deactivate()
+    {
+        Active = false;
+    }
 
     /// <summary>
     /// Checks if the total amount accumulated is equal or greater than the target amount.
@@ -32,29 +44,44 @@ public class Goal : Entity
     {
         return TotalAmount >= TargetAmount;
     }
+    
+    /// <summary>
+    /// Represents a deposit operation.
+    /// </summary>
+    /// <param name="amount"></param>
+    /// <returns></returns>
+    public Result<Transaction> Deposit(decimal amount)
+    {
+        var newTransaction = new Transaction(amount, TransactionTypeEnum.Deposit, Id);
+        var isValidResult = newTransaction.IsValid();
+        if (isValidResult.IsFailure)
+        {
+            return Result.Fail<Transaction>(isValidResult.Error);
+        }
+        TotalAmount = TotalAmount + amount;
+        return Result.Ok(newTransaction);
+    }
 
     /// <summary>
-    /// Updates the total goal amount.
+    /// Represents a withdraw operation.
     /// </summary>
-    /// <param name="transaction"></param>
-    public Result UpdateTotalAmount(Transaction transaction)
+    /// <param name="amount"></param>
+    /// <returns></returns>
+    public Result<Transaction> Withdraw(decimal amount)
     {
-        if (transaction.IsNegative())
+        var newTransaction = new Transaction(amount, TransactionTypeEnum.Withdraw, Id);
+        var isValidTransactionResult = newTransaction.IsValid();
+        if (isValidTransactionResult.IsFailure)
         {
-            return Result.Fail(DomainErrors.Transaction.NotNegative);
+            return Result.Fail<Transaction>(isValidTransactionResult.Error);
         }
-        var newQuantity = transaction.IsDeposit()
-            ? transaction.Quantity
-            : transaction.Quantity * -1;
-        var futureAmount = TotalAmount + newQuantity;
-        if (futureAmount < 0)
+        var isFutureTotalAmountNegative = (TotalAmount-amount) <= 0;
+        if (isFutureTotalAmountNegative)
         {
-            return Result.Fail(DomainErrors.Goal.TotalNotNegative);
+            return Result.Fail<Transaction>(DomainErrors.Goal.TotalNotNegative);
         }
-        TotalAmount += newQuantity;
-        return Result.Ok();
+        TotalAmount = TotalAmount - amount;
+        return Result.Ok(newTransaction);
     }
-    
-    
     
 }

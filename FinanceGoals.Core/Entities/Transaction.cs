@@ -15,6 +15,7 @@ public class Transaction : Entity
         TransactionType = transactionType;
         IdGoal = idGoal;
     }
+    
     public Guid IdGoal { get; set; }
     public decimal Quantity { get; set; }
     public TransactionTypeEnum TransactionType { get; set; }
@@ -30,15 +31,6 @@ public class Transaction : Entity
             return Result.Fail(DomainErrors.Transaction.NotNegative);
         }
         return Result.Ok();
-    }
-
-    /// <summary>
-    /// Check if the transaction quantity is negative.
-    /// </summary>
-    /// <returns>A bool value</returns>
-    public bool IsNegative()
-    {
-        return Quantity < 0;
     }
 
     /// <summary>

@@ -1,3 +1,0 @@
-﻿GET http://localhost:5050/api/transactions
-Accept: application/json
-###

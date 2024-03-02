@@ -37,4 +37,21 @@ public class GoalRepository : IGoalRepository
             .Include(o => o.Transactions)
             .ToListAsync();
     }
+    
+    /// <inheritdoc/>
+    public async Task AddTransaction(Transaction transaction)
+    {
+        await _appDbContext
+            .Transactions
+            .AddAsync(transaction);
+    }
+    
+    /// <inheritdoc/>
+    public async Task<List<Transaction>> GetTransactions(Guid idGoal)
+    {
+        return await _appDbContext
+            .Transactions
+            .Where(o => o.IdGoal == idGoal)
+            .ToListAsync();
+    }
 }

@@ -6,16 +6,13 @@ namespace FinanceGoals.Infrastructure.Persistence;
 /// <inheritdoc/>
 public class AppUnitOfWork : IUnitOfWork
 {
-    public AppUnitOfWork(AppDbContext appDbContext, IGoalRepository goalRepository, ITransactionRepository transactionRepository)
+    public AppUnitOfWork(AppDbContext appDbContext, IGoalRepository goalRepository)
     {
         _appDbContext = appDbContext;
         GoalRepository = goalRepository;
-        TransactionRepository = transactionRepository;
     }
-    
     private readonly AppDbContext _appDbContext;
     public IGoalRepository GoalRepository { get; set; }
-    public ITransactionRepository TransactionRepository { get; set; }
 
     /// <inheritdoc/>
     public async Task<int> Complete()
