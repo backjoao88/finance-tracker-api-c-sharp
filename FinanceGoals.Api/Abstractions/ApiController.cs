@@ -9,6 +9,8 @@ namespace FinanceGoals.Api.Abstractions;
 /// </summary>
 public class ApiController : ControllerBase
 {
+    [NonAction]
     public IActionResult BadRequest(Error error) => BadRequest(new ApiErrorResponse(new []{ error }));
+    [NonAction]
     public IActionResult NotFound(Error error) => NotFound(new ApiErrorResponse(new[] { error }));
 }

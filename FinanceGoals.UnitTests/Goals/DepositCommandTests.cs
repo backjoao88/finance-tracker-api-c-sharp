@@ -81,7 +81,7 @@ public class DepositCommandTests
     }
 
     /// <summary>
-    /// Tests if handler increases correctly the balance when two deposits are performed.
+    /// Verifica se o comando aumenta corretamente o caixa quando dois depósitos são realizados.
     /// </summary>
     /// <param name="expectedAmount"></param>
     /// <param name="one"></param>
