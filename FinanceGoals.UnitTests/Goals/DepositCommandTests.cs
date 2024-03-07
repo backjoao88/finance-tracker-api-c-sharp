@@ -1,4 +1,5 @@
-﻿using FinanceGoals.Application.Commands.Goals.Deposit;
+﻿
+using FinanceGoals.Application.Commands.Goals.Deposit;
 using FinanceGoals.Core.Entities;
 using FinanceGoals.Core.Primitives.Errors;
 using FinanceGoals.Core.Repositories;
@@ -89,7 +90,8 @@ public class DepositCommandTests
     [Theory]
     [InlineData(300, 100.00, 200.00)]
     [InlineData(555.50, 55.50, 500.00)]
-    public async void HandlerShouldIncreaseAmountIfTwoDepositsArePerformed(decimal expectedAmount, decimal one, decimal two)
+    public async void HandlerShouldIncreaseAmountIfTwoDepositsArePerformed(decimal expectedAmount, decimal one,
+        decimal two)
     {
         // Arrange
         var goal = new Goal("MyMockedGoal", 10.000M, 1.000M, DateTime.Now, DateTime.Now.AddDays(3));
@@ -99,13 +101,9 @@ public class DepositCommandTests
             .Returns(goal);
         var goalService = new GoalService(_unitOfWorkMock);
         // Act
-        var deposits = new decimal[] { one, two };
-        foreach (var deposit in deposits)
-        {
-            var handler = new DepositCommandHandler(_unitOfWorkMock, goalService);
-            var result =
-                await handler.Handle(new DepositCommand(Guid.NewGuid(), deposit), CancellationToken.None);
-        }
+        var handler = new DepositCommandHandler(_unitOfWorkMock, goalService);
+        await handler.Handle(new DepositCommand(Guid.NewGuid(), one), CancellationToken.None);
+        await handler.Handle(new DepositCommand(Guid.NewGuid(), two), CancellationToken.None);
         // Assert
         Assert.Equal(expectedAmount, goal.TotalAmount);
     }

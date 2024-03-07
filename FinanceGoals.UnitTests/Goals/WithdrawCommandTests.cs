@@ -83,7 +83,7 @@ public class WithdrawCommandTests
     }
 
     /// <summary>
-    /// Tests if handler increases decreases the balance when two withdraws are performed.
+    /// Verifica se o comando retorna erro ao realizar um saque que deixa o caixa negativo.
     /// </summary>
     /// <param name="withdraw"></param>
     [Theory]
