@@ -12,7 +12,7 @@ public class GoalConfiguration : BaseConfiguration<Goal>
         base.Configure(builder);
         builder.ToTable("tbl_Goals");
         builder.Property(o => o.Title).IsRequired();
-        builder.Property(o => o.Active).IsRequired().HasDefaultValue(true);
+        builder.Property(o => o.Active).IsRequired();
         builder.Property(o => o.TargetAmount).HasPrecision(10, 2).IsRequired();
         builder.Property(o => o.TotalAmount).HasPrecision(10, 2);
         builder

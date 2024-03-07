@@ -1,7 +1,7 @@
-﻿PATCH http://localhost:5050/api/goals/deposit/08dc39f5-a373-4921-8b84-a4789b2b881d
+﻿PATCH http://localhost:5050/api/goals/deposit/08dc3ab4-6447-4125-8473-f20a4f2e24fb
 Content-Type: application/json
 
 {
-  "idGoal": "08dc39f5-a373-4921-8b84-a4789b2b881d",
+  "idGoal": "08dc3ab4-6447-4125-8473-f20a4f2e24fb",
   "amount": 1000.00
 }

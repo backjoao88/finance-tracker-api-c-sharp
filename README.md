@@ -1,15 +1,15 @@
 # Finance Goals
 
 Software para gerenciamento de objetivos de financeiros, similar a caixinha do Nubank. Realizado com o propósito de aperfeiçar minhas habilidades na construção de APIs.
-- Permite cadastro de novos usuários;
-- Permite cadastro de caixinhas de objetivos financeiros;
-- O sistema permite o depósito de uma quantia em caixinhas de um usuário;
-- O sistema permite a retirada de uma quantia em caixinhas de um usuário;
-- O sistema calcula o balanço de uma caixinha;
 
 ## Regras de negócio
 
-- [ ] Transação deve ser feita com até duas casas decimais de precisão, e não pode ser negativa;
+- [ ] Permite cadastro de novos usuários;
+- [x] Permite cadastro de caixinhas de objetivos financeiros;
+- [x] permitir o depósito de uma quantia em caixinhas de um usuário;
+- [x] permitir a retirada de uma quantia em caixinhas de um usuário;
+- [x] Deve calcular o balanço de uma caixinha ao inserir transação;
+- [x] Transação deve ser feita com até duas casas decimais de precisão, e não pode ser negativa;
 
 ## Entidades
 ### Goal

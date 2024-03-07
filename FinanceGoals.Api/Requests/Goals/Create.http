@@ -3,5 +3,6 @@ Content-Type: application/json
 
 {
   "title": "Comprar um piano",
-  "targetAmount": 20000
+  "targetAmount": 20000,
+  "deadlineMonths": 6
 }

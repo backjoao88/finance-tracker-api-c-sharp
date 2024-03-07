@@ -12,6 +12,6 @@ public class TransactionConfiguration : BaseConfiguration<Transaction>
         base.Configure(builder);
         builder.ToTable("tbl_Transactions");
         builder.Property(o => o.Quantity).HasPrecision(10, 2).IsRequired();
-        builder.Property(o => o.TransactionType).IsRequired();
+        builder.Property(o => o.ETransactionType).IsRequired();
     }
 }

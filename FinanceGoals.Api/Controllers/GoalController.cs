@@ -1,6 +1,7 @@
 ﻿using FinanceGoals.Api.Abstractions;
 using FinanceGoals.Application.Commands.Goals.Create;
 using FinanceGoals.Application.Commands.Goals.Deactivate;
+using FinanceGoals.Application.Commands.Goals.Delete;
 using FinanceGoals.Application.Commands.Goals.Deposit;
 using FinanceGoals.Application.Commands.Goals.Withdraw;
 using FinanceGoals.Application.Queries.Goals.GetAll;
@@ -96,12 +97,27 @@ public class GoalController : ApiController
     /// <summary>
     /// Endpoint to deactivate a goal.
     /// </summary>
-    [HttpPatch]
+    [HttpPatch("deactivate/{id}")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
-    public async Task<IActionResult> Deactivate(DeactivateGoalCommand deactivateGoalCommand)
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<IActionResult> Deactivate(Guid id, DeactivateGoalCommand deactivateGoalCommand)
     {
-        await _mediator.Send(deactivateGoalCommand);
-        return NoContent();
+        deactivateGoalCommand.IdGoal = id;
+        var result = await _mediator.Send(deactivateGoalCommand);
+        return result.IsSuccess ? NoContent() : NotFound();
+    }
+
+    /// <summary>
+    /// Endpoint to delete a goal.
+    /// </summary>
+    [HttpDelete("{id}")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<IActionResult> Delete(Guid id, [FromBody] DeleteGoalCommand deleteGoalCommand)
+    {
+        deleteGoalCommand.IdGoal = id;
+        var result = await _mediator.Send(deleteGoalCommand);
+        return result.IsSuccess ? NoContent() : NotFound();
     }
 
 }

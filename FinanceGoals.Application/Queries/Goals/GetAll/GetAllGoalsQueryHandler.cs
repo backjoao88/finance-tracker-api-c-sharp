@@ -27,9 +27,9 @@ public class GetAllGoalsQueryHandler : IRequestHandler<GetAllGoalsQuery, List<Go
                 var transactionsViewModel = goal
                     .Transactions
                     .Select(transaction =>
-                        new TransactionViewModel(transaction.Id, transaction.Quantity, transaction.TransactionType))
+                        new TransactionViewModel(transaction.Id, transaction.Quantity, transaction.ETransactionType))
                     .ToList();
-                return new GoalViewModel(goal.Id, goal.Title, goal.TargetAmount, goal.TotalAmount, goal.Start, goal.End, transactionsViewModel);
+                return new GoalViewModel(goal.Id, goal.Title, goal.TargetAmount, goal.TotalAmount, goal.Start, goal.End, goal.Active, transactionsViewModel);
             })
             .ToList();
         return goalsViewModel;

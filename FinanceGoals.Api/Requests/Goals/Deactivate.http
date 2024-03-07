@@ -1,0 +1,7 @@
+﻿PATCH http://localhost:5050/api/goals/deactivate/08dc3ab4-6447-4125-8473-f20a4f2e24fb
+Content-Type: application/json
+
+{
+  "idGoal": "08dc3ab4-6447-4125-8473-f20a4f2e24fb"
+}
+###
